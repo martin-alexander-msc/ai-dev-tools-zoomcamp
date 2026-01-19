@@ -9,7 +9,7 @@
       "program": "${workspaceFolder}/manage.py",
       "args": ["runserver", "8001"],
       "django": true,
-      "preLaunchTask": "django:init-project",
+      "preLaunchTask": "django:migrate",
       "console": "integratedTerminal"
     }
   ]

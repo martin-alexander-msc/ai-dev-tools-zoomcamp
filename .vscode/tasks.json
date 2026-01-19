@@ -11,6 +11,17 @@
       ],
       "problemMatcher": [],
       "group": "build"
+    },
+    {
+      "label": "django:migrate",
+      "type": "shell",
+      "dependsOn": ["django:init-project"],
+      "command": "bash",
+      "args": [
+        "-lc",
+        "set -e\nif [ ! -d .venv ]; then\n  uv venv .venv\nfi\n.venv/bin/python manage.py migrate"
+      ],
+      "problemMatcher": []
     }
   ]
 }
