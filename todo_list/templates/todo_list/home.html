@@ -1,0 +1,44 @@
+{% extends "todo_list/base.html" %}
+
+{% block title %}Todo List{% endblock %}
+
+{% block content %}
+  <h1>Todo List</h1>
+
+  <form action="{% url 'todo_list_create' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add</button>
+  </form>
+
+  {% for todo in todos %}
+    <div class="todo {% if todo.is_resolved %}resolved{% endif %}">
+      <strong>{{ todo.title }}</strong>
+      {% if todo.description %}
+        <p>{{ todo.description }}</p>
+      {% endif %}
+      <div class="meta">
+        {% if todo.due_date %}
+          Due: {{ todo.due_date }}
+        {% else %}
+          No due date
+        {% endif %}
+      </div>
+      <div class="actions">
+        <a href="{% url 'todo_list_edit' todo.id %}">Edit</a>
+        <form action="{% url 'todo_list_toggle' todo.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit">
+            {% if todo.is_resolved %}Mark open{% else %}Mark resolved{% endif %}
+          </button>
+        </form>
+        <form action="{% url 'todo_list_delete' todo.id %}" method="post">
+          {% csrf_token %}
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+    </div>
+  {% empty %}
+    <p>No todos yet.</p>
+  {% endfor %}
+{% endblock %}

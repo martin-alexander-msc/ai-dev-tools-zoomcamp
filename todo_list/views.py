@@ -8,7 +8,7 @@ from .models import Todo
 def index(request):
     todos = Todo.objects.order_by("is_resolved", "due_date", "-created_at")
     form = TodoForm()
-    return render(request, "todo_list/index.html", {"todos": todos, "form": form})
+    return render(request, "todo_list/home.html", {"todos": todos, "form": form})
 
 
 def create(request):

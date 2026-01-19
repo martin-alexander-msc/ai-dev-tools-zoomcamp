@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>{% block title %}Todo List{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+        margin: 2rem;
+      }
+      form {
+        margin-bottom: 1.5rem;
+      }
+      .todo {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+      .resolved {
+        background: #f4f4f4;
+        text-decoration: line-through;
+        color: #666;
+      }
+      .meta {
+        font-size: 0.9rem;
+        color: #555;
+      }
+      .actions {
+        margin-top: 0.5rem;
+      }
+      .actions form {
+        display: inline;
+      }
+    </style>
+  </head>
+  <body>
+    {% block content %}{% endblock %}
+  </body>
+</html>
