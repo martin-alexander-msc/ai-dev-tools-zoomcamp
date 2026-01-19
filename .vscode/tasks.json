@@ -1,0 +1,16 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "django:init-project",
+      "type": "shell",
+      "command": "bash",
+      "args": [
+        "-lc",
+        "set -e\nif [ ! -d .venv ]; then\n  python3 -m venv .venv\nfi\n. .venv/bin/activate\nSTAMP=.venv/.requirements.stamp\nif [ -f requirements.txt ]; then\n  if [ ! -f \"$STAMP\" ] || [ requirements.txt -nt \"$STAMP\" ]; then\n    pip install -r requirements.txt\n    touch \"$STAMP\"\n  fi\nelse\n  if [ ! -f \"$STAMP\" ]; then\n    pip install Django\n    touch \"$STAMP\"\n  fi\nfi\nif [ ! -f manage.py ]; then\n  python -m django startproject mysite .\nelse\n  echo \"Django project already initialized (manage.py exists).\"\nfi"
+      ],
+      "problemMatcher": [],
+      "group": "build"
+    }
+  ]
+}
