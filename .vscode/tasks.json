@@ -22,6 +22,17 @@
         "set -e\nif [ ! -d .venv ]; then\n  uv venv .venv\nfi\n.venv/bin/python manage.py migrate"
       ],
       "problemMatcher": []
+    },
+    {
+      "label": "django:test",
+      "type": "shell",
+      "dependsOn": ["django:init-project"],
+      "command": "bash",
+      "args": [
+        "-lc",
+        "set -e\nif [ ! -d .venv ]; then\n  uv venv .venv\nfi\n.venv/bin/python manage.py test todo_list"
+      ],
+      "problemMatcher": []
     }
   ]
 }
