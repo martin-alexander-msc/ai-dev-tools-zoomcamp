@@ -10,3 +10,4 @@ class TodoForm(forms.ModelForm):
         widgets = {
             "due_date": forms.DateInput(attrs={"type": "date"}),
         }
+Dockerize this application 
