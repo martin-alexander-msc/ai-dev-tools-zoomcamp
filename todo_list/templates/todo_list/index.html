@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Todo List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      body {
+        font-family: "Trebuchet MS", Verdana, sans-serif;
+        margin: 2rem;
+      }
+      form {
+        margin-bottom: 1.5rem;
+      }
+      .todo {
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+      .resolved {
+        background: #f4f4f4;
+        text-decoration: line-through;
+        color: #666;
+      }
+      .meta {
+        font-size: 0.9rem;
+        color: #555;
+      }
+      .actions {
+        margin-top: 0.5rem;
+      }
+      .actions form {
+        display: inline;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Todo List</h1>
+
+    <form action="{% url 'todo_list_create' %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Add</button>
+    </form>
+
+    {% for todo in todos %}
+      <div class="todo {% if todo.is_resolved %}resolved{% endif %}">
+        <strong>{{ todo.title }}</strong>
+        {% if todo.description %}
+          <p>{{ todo.description }}</p>
+        {% endif %}
+        <div class="meta">
+          {% if todo.due_date %}
+            Due: {{ todo.due_date }}
+          {% else %}
+            No due date
+          {% endif %}
+        </div>
+        <div class="actions">
+          <a href="{% url 'todo_list_edit' todo.id %}">Edit</a>
+          <form action="{% url 'todo_list_toggle' todo.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">
+              {% if todo.is_resolved %}Mark open{% else %}Mark resolved{% endif %}
+            </button>
+          </form>
+          <form action="{% url 'todo_list_delete' todo.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Delete</button>
+          </form>
+        </div>
+      </div>
+    {% empty %}
+      <p>No todos yet.</p>
+    {% endfor %}
+  </body>
+</html>
